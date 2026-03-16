@@ -18,7 +18,5 @@ public class Principal {
 
         CalculadoraDeTempo calculadora = new CalculadoraDeTempo();
         System.out.println();
-
-
     }
 }
