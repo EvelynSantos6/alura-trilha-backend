@@ -1,8 +1,15 @@
 package br.com.alura.screenmatch.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Titulo {
+
+    @SerializedName("Title")
     private String nome;
+
+    @SerializedName("Year")
     private int anoDeLancamento;
+
     private boolean incluidoNoPlano;
     private double somaDasAvaliacoes;
     private int totalDeAvaliacoes;
@@ -11,6 +18,12 @@ public class Titulo {
     public Titulo(String nome, int anoDeLancamento) {
         this.nome = nome;
         this.anoDeLancamento = anoDeLancamento;
+    }
+
+    public Titulo(TituloOMDB meuTituloOMDB) {
+        this.nome = meuTituloOMDB.title();
+        this.anoDeLancamento = Integer.valueOf(meuTituloOMDB.year());
+        this.duracaoEmMinutos = Integer.valueOf(meuTituloOMDB.runtime().substring(0,2));
     }
 
     public String getNome() {
@@ -73,5 +86,12 @@ public class Titulo {
 
     public double pegarMedia(){
         return somaDasAvaliacoes / totalDeAvaliacoes;
+    }
+
+    @Override
+    public String toString() {
+        return "nome: " + nome + '\'' +
+                ", anoDeLancamento: " + anoDeLancamento + "," +
+                "duração: " + duracaoEmMinutos;
     }
 }
