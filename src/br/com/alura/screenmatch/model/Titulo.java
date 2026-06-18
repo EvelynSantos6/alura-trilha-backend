@@ -1,15 +1,12 @@
 package br.com.alura.screenmatch.model;
 
+import br.com.alura.screenmatch.excecao.ErroDeConversaoDeAnoException;
 import com.google.gson.annotations.SerializedName;
 
 public class Titulo {
 
-    @SerializedName("Title")
     private String nome;
-
-    @SerializedName("Year")
     private int anoDeLancamento;
-
     private boolean incluidoNoPlano;
     private double somaDasAvaliacoes;
     private int totalDeAvaliacoes;
@@ -22,6 +19,11 @@ public class Titulo {
 
     public Titulo(TituloOMDB meuTituloOMDB) {
         this.nome = meuTituloOMDB.title();
+
+        if(meuTituloOMDB.year().length() > 4){
+            throw new ErroDeConversaoDeAnoException("Não consegui converter o ano porque tem mais de 04 caracteres.");
+        }
+
         this.anoDeLancamento = Integer.valueOf(meuTituloOMDB.year());
         this.duracaoEmMinutos = Integer.valueOf(meuTituloOMDB.runtime().substring(0,2));
     }
@@ -90,8 +92,8 @@ public class Titulo {
 
     @Override
     public String toString() {
-        return "nome: " + nome + '\'' +
-                ", anoDeLancamento: " + anoDeLancamento + "," +
-                "duração: " + duracaoEmMinutos;
+        return "|nome: " + nome +
+                ", anoDeLancamento: " + anoDeLancamento + ", " +
+                "duração: " + duracaoEmMinutos + "| ";
     }
 }
